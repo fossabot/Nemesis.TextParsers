@@ -61,13 +61,13 @@ namespace Nemesis.TextParsers.Parsers
             $"Create transformer for simple system types: {string.Join(", ", _simpleTransformers.Keys.Select(t => t.GetFriendlyName()))}";
     }
 
-    public static class NumberTransformerCache
+    internal static class NumberTransformerCache
     {
         private static readonly IReadOnlyDictionary<Type, ITransformer> _cache = BuildCache();
 
         private static IReadOnlyDictionary<Type, ITransformer> BuildCache(Assembly fromAssembly = null)
         {
-            var transformerTypes = (fromAssembly ?? typeof(NumberTransformer<>).Assembly)
+            var transformerTypes = (fromAssembly ?? Assembly.GetExecutingAssembly())
                 .GetTypes()
                 .Where(t => !t.IsAbstract && !t.IsInterface && !t.IsGenericType && !t.IsGenericTypeDefinition &&
                             t.DerivesOrImplementsGeneric(typeof(NumberTransformer<>))
