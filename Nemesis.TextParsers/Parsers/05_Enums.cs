@@ -8,9 +8,6 @@ using System.Runtime.CompilerServices;
 using JetBrains.Annotations;
 using Nemesis.TextParsers.Runtime;
 using Nemesis.TextParsers.Settings;
-#if PRE_NULLABLES
-using NotNull = JetBrains.Annotations.NotNullAttribute;
-#endif
 
 
 namespace Nemesis.TextParsers.Parsers
@@ -83,7 +80,7 @@ UnderlyingType {underlyingType?.GetFriendlyName() ?? "<none>"} should be a numer
         private readonly EnumTransformerHelper.ParserDelegate<TUnderlying> _elementParser;
 
         // ReSharper disable once RedundantVerbatimPrefix
-        public EnumTransformer([@NotNull]TNumberHandler numberHandler, EnumSettings settings)
+        public EnumTransformer(TNumberHandler numberHandler, EnumSettings settings)
         {
             _numberHandler = numberHandler ?? throw new ArgumentNullException(nameof(numberHandler));
             _settings = settings;
